@@ -1,28 +1,40 @@
 "use client";
 
 import account from "@/service/appwriteConfig";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import useUserStore from "@/store/UserStore";
 
 const HomePage = () => {
-  // get user details
-  const [userDetails, setUserDetails] = useUserStore((state) => [
-    state.userDetails,
-    state.setUserDetails,
-  ]);
+  const router = useRouter();
+  const [userDetails, setUserDetails] = useState(null);
 
   useEffect(() => {
-    const user = account.get();
-    user.then((res) => setUserDetails(res));
-  }, [setUserDetails]);
+    const fetchUserData = async () => {
+      const token = localStorage.getItem("cookieFallback");
+      if (token !== null) {
+        setUserDetails(await account.get());
+      } else {
+        router.push("/login");
+      }
+    };
+    fetchUserData();
+  }, []);
 
-  const userDetails2 = useUserStore((state) => state.userDetails);
-  console.log(userDetails2);
+  const handleLogout = async () => {
+    await account.deleteSession("current");
+    localStorage.removeItem("cookieFallback");
+    console.log("Logged out");
+    router.push("/login");
+  };
 
   return (
     <div>
-      {userDetails && <h1>Welcome {userDetails.name}</h1>}
-      <h1>Home page</h1>
+      {userDetails && (
+        <div>
+          <h1>Welcome {userDetails.name}</h1>
+          <button onClick={handleLogout}>Log Out</button>
+        </div>
+      )}
     </div>
   );
 };
