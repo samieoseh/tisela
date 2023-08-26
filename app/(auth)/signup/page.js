@@ -1,8 +1,15 @@
 "use client";
 import account from "@/service/appwriteConfig";
 import { ID } from "appwrite";
+import Link from "next/link";
 import { useState } from "react";
 
+const formTemplate = [
+  { type: "text", name: "name", placeholder: "Full Name (optional)" },
+  { type: "email", name: "email", placeholder: "Enter email" },
+  { type: "password", name: "name", placeholder: "Enter Password" },
+  { type: "password", name: "name", placeholder: "Confirm Password" },
+];
 const SignUpPage = () => {
   const [sentVerificationMsg, setSentVerificationMsg] = useState(false);
 
@@ -30,8 +37,9 @@ const SignUpPage = () => {
   };
 
   return (
-    <div>
+    <div className="w-full bg-gray-100 rounded">
       <form
+        className="flex flex-col pt-8 w-4/5 mx-auto mt-0"
         onSubmit={(e) => {
           e.preventDefault();
           const formData = new FormData(e.target);
@@ -44,16 +52,21 @@ const SignUpPage = () => {
           handleSubmit(formObj);
         }}
       >
-        <input type="text" name="name" placeholder="Full Name" />
-        <input type="email" name="email" placeholder="Email" />
-        <input type="password" name="password" placeholder="Password" />
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirm Password"
-        />
+        {formTemplate.map((item) => (
+          <input
+            key={item.name}
+            type={item.type}
+            name={item.name}
+            placeholder={item.placeholder}
+            className="border border-gray-400 outline-none py-2 px-4 mb-4 rounded focus:border-blue-500"
+          />
+        ))}
+
         <button>Submit</button>
       </form>
+      <p>
+        Have an account? <Link href="/login">Login</Link>
+      </p>
       <div>
         {sentVerificationMsg && (
           <p>Verification message has been sent to the provided email</p>
