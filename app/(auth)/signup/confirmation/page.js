@@ -15,7 +15,7 @@ const ConfirmationPage = () => {
     router.push("/");
   }
 
-  return <h1>Email Confirmed</h1>;
+  return <h1>Error in confirmation of email address</h1>;
 };
 
 export default ConfirmationPage;
