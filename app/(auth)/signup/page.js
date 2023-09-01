@@ -1,32 +1,11 @@
 "use client";
 
+import Button from "@/components/Button";
+import InputField from "@/components/InputField";
 import account from "@/service/appwriteConfig";
 import { ID } from "appwrite";
 import Link from "next/link";
 import { useState } from "react";
-
-const InputField = ({ label, type, value, onChange }) => (
-  <div className="flex flex-col">
-    <label className="py-2">{label}</label>
-    <input
-      type={type}
-      value={value}
-      onChange={onChange}
-      className="px-4 py-3 outline-none rounded border w-full border-gray-300 focus:border-blue-500 focus:shadow-sm"
-    />
-  </div>
-);
-
-const StepButton = ({ text, onClick }) => (
-  <div className="w-full flex justify-end">
-    <button
-      onClick={onClick}
-      className="bg-blue-500 px-4 py-2 mt-6 rounded shadow:sm text-white"
-    >
-      {text}
-    </button>
-  </div>
-);
 
 const SignUpPage = () => {
   const [sentVerificationMsg, setSentVerificationMsg] = useState(false);
@@ -34,14 +13,6 @@ const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [step, setStep] = useState(1);
-
-  const handleStep = () => {
-    if (step < 3) {
-      setStep(step + 1);
-    } else {
-      handleSubmit({ name, email, password });
-    }
-  };
 
   const handleSubmit = async (formObj) => {
     // TODO: perform regex to email
@@ -70,9 +41,9 @@ const SignUpPage = () => {
       console.log(e);
     }
   };
-
+  console.log(step);
   return (
-    <div className="w-full px-8 border">
+    <div className="w-full px-8">
       <div className="">
         {step === 1 && (
           <InputField
@@ -98,10 +69,29 @@ const SignUpPage = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         )}
-        <StepButton
-          text={step < 3 ? "Next" : "Done"}
-          onClick={step < 3 ? () => setStep(step + 1) : () => handleStep()}
-        />
+        <div
+          className={`w-full flex ${
+            step > 1 ? "justify-between" : "justify-end"
+          }`}
+        >
+          {step > 1 && (
+            <Button
+              text={"Back"}
+              className="bg-white text-blue-500 border"
+              onClick={step > 1 ? () => setStep(step - 1) : null}
+            />
+          )}
+
+          <Button
+            text={step < 3 ? "Next" : "Done"}
+            className="bg-blue-500 text-white"
+            onClick={
+              step < 3
+                ? () => setStep(step + 1)
+                : () => handleSubmit({ name, email, password })
+            }
+          />
+        </div>
       </div>
       <p className="text-center text-sm mt-6 text-gray-500">
         Have an account?{" "}

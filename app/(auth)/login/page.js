@@ -13,6 +13,7 @@ const formTemplate = [
 const LoginPage = () => {
   const router = useRouter();
   const [errorState, setErrorState] = useState(false);
+
   const handleSubmit = async (formObj) => {
     console.log("Login", formObj.email, formObj.password);
     try {
@@ -20,6 +21,7 @@ const LoginPage = () => {
       router.push("/");
     } catch (error) {
       setErrorState(true);
+      setLoading(false);
     }
   };
   return (
@@ -33,7 +35,6 @@ const LoginPage = () => {
             email: formData.get("email") ?? "",
             password: formData.get("password") ?? "",
           };
-
           handleSubmit(formObj);
         }}
       >
@@ -48,7 +49,10 @@ const LoginPage = () => {
           </div>
         ))}
 
-        <button className="w-full py-2 bg-blue-500 text-white rounded mt-5">
+        <button
+          className="w-full py-2 bg-blue-500 text-white rounded mt-5
+          "
+        >
           Sign In
         </button>
       </form>
@@ -62,6 +66,13 @@ const LoginPage = () => {
         <Link href="/signup" className="underline text-blue-500 ">
           Create one
         </Link>
+      </p>
+      <p className="text-xs text-center pt-2 pb-4">
+        Forgot password? Click{" "}
+        <Link href={"/login"} className="underline text-blue-500">
+          Here
+        </Link>{" "}
+        to reset password
       </p>
     </div>
   );
