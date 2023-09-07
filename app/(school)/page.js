@@ -1,6 +1,7 @@
 "use client";
 
-import account from "@/service/appwriteConfig";
+import { account } from "@/service/appwriteConfig";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -28,13 +29,14 @@ const HomePage = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col">
+      <Link href="/1/profile">Go to profile</Link>
       {userDetails && (
         <div>
           <h1>Welcome {userDetails.name}</h1>
-          <button onClick={handleLogout}>Log Out</button>
         </div>
       )}
+      <button onClick={handleLogout}>Log Out</button>
     </div>
   );
 };

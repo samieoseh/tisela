@@ -2,10 +2,23 @@
 
 import Button from "@/components/Button";
 import InputField from "@/components/InputField";
-import account from "@/service/appwriteConfig";
-import { ID } from "appwrite";
+import { account, databases } from "@/service/appwriteConfig";
+import { v4 as uuidv4 } from "uuid";
 import Link from "next/link";
 import { useState } from "react";
+
+const storeToDatabase = async (user_id, name, email) => {
+  await databases.createDocument(
+    process.env.NEXT_PUBLIC_DATABASE_ID,
+    process.env.NEXT_PUBLIC_COLLECTION_ID,
+    user_id,
+    {
+      name: name,
+      email: email,
+      current_level: "100",
+    },
+  );
+};
 
 const SignUpPage = () => {
   const [sentVerificationMsg, setSentVerificationMsg] = useState(false);
@@ -18,13 +31,16 @@ const SignUpPage = () => {
     // TODO: perform regex to email
 
     try {
+      const user_id = uuidv4();
       await account.create(
-        ID.unique(),
+        user_id,
         formObj.email,
         formObj.password,
         formObj.name,
       );
       await account.createEmailSession(formObj.email, formObj.password);
+      // store user data in database
+      storeToDatabase(user_id, formObj.name, formObj.email);
 
       if (process.env.NEXT_PUBLIC_ENVIRONMENT === "development") {
         const verifiedUser = await account.createVerification(
@@ -41,7 +57,7 @@ const SignUpPage = () => {
       console.log(e);
     }
   };
-  console.log(step);
+
   return (
     <div className="w-full px-8">
       <div className="">

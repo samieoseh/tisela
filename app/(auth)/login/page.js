@@ -1,5 +1,5 @@
 "use client";
-import account from "@/service/appwriteConfig";
+import { account } from "@/service/appwriteConfig";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import "../../global.css";
@@ -25,7 +25,7 @@ const LoginPage = () => {
     }
   };
   return (
-    <div className="w-full flex flex-col mx-auto mt-0 bg-gray-100 rounded border">
+    <div className="w-full flex flex-col mx-auto mt-0 bg-[#f9f9f9] rounded border">
       <form
         className="flex flex-col pt-8 w-4/5 mx-auto mt-0"
         onSubmit={(e) => {
