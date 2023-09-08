@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 
-import RequiredLogin from "@/service/RequireLogin";
 import ProfileTab from "@/components/ProfileTab.";
 import { account, databases } from "@/service/appwriteConfig";
 import { Query } from "appwrite";
@@ -13,7 +12,6 @@ const ProfilePage = ({ user }) => {
   const [verificationStatus, setVerificationStatus] = useState(false);
 
   useEffect(() => {
-    console.log("Running use effect");
     const fetchUserData = async () => {
       const user = await account.get();
       setVerificationStatus(user.emailVerification ? true : false);
@@ -27,9 +25,8 @@ const ProfilePage = ({ user }) => {
     fetchUserData();
   }, []);
 
-  console.log(userData);
   return (
-    <RequiredLogin>
+    <div>
       {userData && (
         <main className="w-11/12 mx-auto my-8 flex flex-col">
           <Link href="/">Go to Home</Link>
@@ -91,7 +88,7 @@ const ProfilePage = ({ user }) => {
           <ProfileTab />
         </main>
       )}
-    </RequiredLogin>
+    </div>
   );
 };
 

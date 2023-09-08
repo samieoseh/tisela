@@ -1,42 +1,42 @@
 "use client";
-
-import { account } from "@/service/appwriteConfig";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { account } from "@/service/appwriteConfig";
 import { useEffect, useState } from "react";
+import { getCurrentUser } from "@/lib/appwriteUtils";
+import { useRouter } from "next/navigation";
+import { deleteCookie } from "cookies-next";
 
 const HomePage = () => {
-  const router = useRouter();
   const [userDetails, setUserDetails] = useState(null);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const token = localStorage.getItem("cookieFallback");
-      if (token !== null) {
-        setUserDetails(await account.get());
-      } else {
-        router.push("/login");
-      }
-    };
-    fetchUserData();
-  }, []);
+  const router = useRouter();
 
   const handleLogout = async () => {
-    await account.deleteSession("current");
-    localStorage.removeItem("cookieFallback");
-    console.log("Logged out");
-    router.push("/login");
+    try {
+      await account.deleteSession("current");
+      deleteCookie("auth", true, { maxAge: 60 * 60 * 60 * 24 });
+      console.log("Logged out");
+      router.push("/login");
+    } catch (error) {
+      console.log("Logout failed, ", error);
+    }
   };
 
+  useEffect(() => {
+    const user = getCurrentUser();
+    user.then((res) => setUserDetails(res));
+  }, []);
+
   return (
-    <div className="flex flex-col">
-      <Link href="/1/profile">Go to profile</Link>
-      {userDetails && (
-        <div>
-          <h1>Welcome {userDetails.name}</h1>
-        </div>
-      )}
-      <button onClick={handleLogout}>Log Out</button>
+    <div>
+      <div className="flex flex-col">
+        <Link href="/1/profile">Go to profile</Link>
+        {userDetails && (
+          <div>
+            <h1>Welcome {userDetails.name}</h1>
+          </div>
+        )}
+        <button onClick={handleLogout}>Log Out</button>
+      </div>
     </div>
   );
 };
