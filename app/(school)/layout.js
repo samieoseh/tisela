@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import "../global.css";
 import { Poppins } from "next/font/google";
 
@@ -11,7 +12,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} bg-[#f9f9f9]`}>{children}</body>
+      <body className={`${poppins.className} bg-[#f9f9f9] overflow-x-hidden`}>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }

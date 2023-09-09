@@ -20,7 +20,7 @@ const LoginPage = () => {
     console.log("Login", formObj.email, formObj.password);
     try {
       await account.createEmailSession(formObj.email, formObj.password);
-      setCookie("auth", true, { maxAge: 60 * 6 * 24 });
+      setCookie("auth", true, { maxAge: 60 * 60 * 60 * 6 * 24 });
       router.push("/");
     } catch (error) {
       setErrorState(true);
