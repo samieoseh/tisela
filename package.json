@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
     "add": "^2.0.6",
     "appwrite": "^11.0.1",
     "autoprefixer": "10.4.15",
@@ -22,6 +23,7 @@
     "postcss": "8.4.28",
     "prettier": "^3.0.2",
     "react": "18.2.0",
+    "react-awesome-reveal": "^4.2.5",
     "react-dom": "18.2.0",
     "shadcn-ui": "^0.3.0",
     "skeleton": "^0.1.2",
