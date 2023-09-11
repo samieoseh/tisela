@@ -19,7 +19,10 @@ const HomePage = () => {
   return (
     <Container>
       <main>
-        <section id="home" className="h-auto flex flex-col flex-wrap">
+        <section
+          id="home"
+          className="h-[calc(100vh-52px)] mt-[52px] flex flex-col flex-wrap"
+        >
           <Slide duration={1500}>
             <h1 className="mt-[25%] self-center text-7xl font-bold">
               LEARNING WITHOUT LIMITS...
