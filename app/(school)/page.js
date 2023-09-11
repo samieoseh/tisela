@@ -19,38 +19,52 @@ const HomePage = () => {
   return (
     <Container>
       <main>
-        <section id="home" className="h-screen flex flex-col flex-wrap">
-          <Slide duration={1500}>
-            <h1 className="mt-[35%] self-center text-7xl font-bold">
-              LEARNING WITHOUT LIMITS...
-            </h1>
+        <section
+          id="home"
+          className="h-auto mt-[25%] md:mt-[20%] flex flex-col flex-wrap md:flex md:flex-row"
+        >
+          <div>
+            <Slide duration={1500}>
+              <h1 className="self-center text-7xl md:text-5xl font-bold">
+                LEARNING WITHOUT LIMITS...
+              </h1>
+              <p className="text-[1rem] mt-4">
+                Break free from traditional boundaries. <br />
+                With our e-learning resources, you can learn, grow, and thrive
+                no matter where you are
+              </p>
+              <div className="mt-12">
+                <Link
+                  href="/signup"
+                  className="inline mr-4 py-2 px-4 bg-blue-500 rounded text-white"
+                >
+                  Get Started
+                </Link>
+                <Link
+                  href="/about"
+                  className="inline mr-2 py-2 px-4 border border-gray-400 rounded text-[#111]"
+                >
+                  Learn More
+                </Link>
+              </div>
+            </Slide>
+          </div>
 
-            <p className="text-[1rem] mt-4">
-              Break free from traditional boundaries. <br />
-              With our e-learning resources, you can learn, grow, and thrive no
-              matter where you are
-            </p>
-            <div className="mt-12">
-              <Link
-                href="/signup"
-                className="inline mr-4 py-2 px-4 bg-blue-500 rounded text-white"
-              >
-                Get Started
-              </Link>
-              <Link
-                href="/about"
-                className="inline mr-2 py-2 px-4 border border-gray-400 rounded text-[#111]"
-              >
-                Learn More
-              </Link>
-            </div>
-          </Slide>
+          <div className="hidden md:block h-[80%] w-[35%] border absolute top-24 right-20 ">
+            <Image
+              src="/hero.jpg"
+              alt="hero"
+              layout="fill"
+              objectFit="cover"
+              className=""
+            />
+          </div>
         </section>
         <section
           id="features"
-          className="pt-[15%] flex flex-col items-center justify-center"
+          className="pt-[20%] flex flex-col items-center justify-center"
         >
-          <h2 className="text-center text-2xl">KEY FEATURES</h2>
+          <h2 className="text-center text-3xl font-bold">KEY FEATURES</h2>
           <div className="md:grid md:grid-cols-2">
             <Fade cascade={true} duration={1000}>
               {featuresList.map((feature, id) => (

@@ -1,6 +1,6 @@
 const Container = ({ children, className, ...props }) => {
   return (
-    <div className={`px-5 md:px-20 ${className}`} {...props}>
+    <div className={`mx-5 md:mx-20 ${className}`} {...props}>
       {children}
     </div>
   );
