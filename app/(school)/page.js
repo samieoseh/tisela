@@ -5,7 +5,7 @@ import FeatureCard from "@/components/FeatureCard";
 import Logo from "@/components/Logo";
 import Image from "next/image";
 import Link from "next/link";
-import { Fade, Slide } from "react-awesome-reveal";
+import { Fade, Slide, Zoom } from "react-awesome-reveal";
 import { featuresList } from "@/lib/constants";
 
 const HomePage = () => {
@@ -21,11 +21,11 @@ const HomePage = () => {
       <main>
         <section
           id="home"
-          className="h-auto mt-[25%] md:mt-[20%] flex flex-col flex-wrap md:flex md:flex-row"
+          className="h-auto flex flex-col flex-wrap lg:flex lg:flex-row  lg:gap-8 lg:justify-between "
         >
-          <div>
+          <div className="mt-[25%] lg:mt-[20%] lg:w-2/4">
             <Slide duration={1500}>
-              <h1 className="self-center text-7xl md:text-5xl font-bold">
+              <h1 className="self-center text-7xl lg:text-4xl font-bold">
                 LEARNING WITHOUT LIMITS...
               </h1>
               <p className="text-[1rem] mt-4">
@@ -49,20 +49,21 @@ const HomePage = () => {
               </div>
             </Slide>
           </div>
-
-          <div className="hidden md:block h-[80%] w-[35%] border absolute top-24 right-20 ">
-            <Image
-              src="/hero.jpg"
-              alt="hero"
-              layout="fill"
-              objectFit="cover"
-              className=""
-            />
-          </div>
+          <Zoom>
+            <div className="hidden lg:block w-[30rem] h-[30rem] mt-[15vh] relative flex-1 border">
+              <Image
+                src="/hero.jpg"
+                alt="hero"
+                layout="fill"
+                objectFit="cover"
+                className=""
+              />
+            </div>
+          </Zoom>
         </section>
         <section
           id="features"
-          className="pt-[20%] flex flex-col items-center justify-center"
+          className="pt-[20%] md:pt-[10%] flex flex-col items-center justify-center"
         >
           <h2 className="text-center text-3xl font-bold">KEY FEATURES</h2>
           <div className="md:grid md:grid-cols-2">
