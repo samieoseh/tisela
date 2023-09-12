@@ -50,7 +50,7 @@ const HomePage = () => {
             </Slide>
           </div>
           <Zoom>
-            <div className="hidden lg:block w-[30rem] h-[30rem] mt-[15vh] relative flex-1 border">
+            <div className="hidden lg:block w-[30rem] h-[30rem] mt-[15vh] relative flex-1">
               <Image
                 src="/hero.jpg"
                 alt="hero"
@@ -65,7 +65,9 @@ const HomePage = () => {
           id="features"
           className="pt-[20%] md:pt-[10%] flex flex-col items-center justify-center"
         >
-          <h2 className="text-center text-3xl font-bold">KEY FEATURES</h2>
+          <h2 className="text-center text-2xl font-bold ">
+            KEY FEATURES JUST FOR YOU
+          </h2>
           <div className="md:grid md:grid-cols-2">
             <Fade cascade={true} duration={1000}>
               {featuresList.map((feature, id) => (
@@ -75,37 +77,64 @@ const HomePage = () => {
           </div>
         </section>
         <section>
-          <h2>FEATURED COURSES</h2>
-          <CourseCard
-            title={"Introduction to Programming"}
-            courseCode={"CSC110"}
-            description={
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla, libero a vehicula euismod, arcu ante venenatis orci, sit amet fringilla ligula elit et purus. Etiam vel lacinia orci, ac scelerisque nulla"
-            }
-          />
-          <CourseCard
-            title={"Introduction to Programming"}
-            courseCode={"CSC110"}
-            description={
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla, libero a vehicula euismod, arcu ante venenatis orci, sit amet fringilla ligula elit et purus. Etiam vel lacinia orci, ac scelerisque nulla"
-            }
-          />
-          <CourseCard
-            title={"Introduction to Programming"}
-            courseCode={"CSC110"}
-            description={
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla, libero a vehicula euismod, arcu ante venenatis orci, sit amet fringilla ligula elit et purus. Etiam vel lacinia orci, ac scelerisque nulla"
-            }
-          />
-          <CourseCard
-            title={"Introduction to Programming"}
-            courseCode={"CSC110"}
-            description={
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla, libero a vehicula euismod, arcu ante venenatis orci, sit amet fringilla ligula elit et purus. Etiam vel lacinia orci, ac scelerisque nulla"
-            }
-          />
+          <h2 className="text-center text-2xl font-bold mt-8">
+            POPULAR COURSES
+          </h2>
+          <p className="text-center text-xs mb-8">
+            Browse some of our high quality and popular courses
+          </p>
+          <div className="flex flex-col gap-y-4 md:grid md:grid-cols-2 lg:grid lg:grid-cols-3 lg:gap-4 justify-center">
+            <CourseCard
+              title="Introduction to React and Next.js"
+              label="Intermediate"
+              price="$250"
+              starsCount={2}
+              reviewCounts={4500}
+              banner="/mona.jpg"
+            />
+            <CourseCard
+              title="Optimizing Next.js"
+              label="Expert"
+              price="$450"
+              starsCount={5}
+              reviewCounts={200}
+              banner="/mona.jpg"
+            />
+            <CourseCard
+              title="Vanilla Js"
+              label="Beginner"
+              price="$150"
+              starsCount={5}
+              reviewCounts={900}
+              banner="/mona.jpg"
+            />
+            <CourseCard
+              title="The Only Marketing Course you would ever need"
+              label="Advanced"
+              price="$950"
+              starsCount={4}
+              reviewCounts={1200}
+              banner="/mona.jpg"
+            />
+            <CourseCard
+              title="Build 6 Projects with Next.js"
+              label="Advanced"
+              price="$450"
+              starsCount={4}
+              reviewCounts={240}
+              banner="/mona.jpg"
+            />
+            <CourseCard
+              title="Svelte Toolkit"
+              label="Expert"
+              price="$1250"
+              starsCount={5}
+              reviewCounts={1900}
+              banner="/mona.jpg"
+            />
+          </div>
         </section>
-        <section>
+        <section className="mt-4">
           <h2>WHAT PEOPLE ARE SAYING ABOUT US</h2>
           <div>
             <div>
