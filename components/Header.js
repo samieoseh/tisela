@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import Container from "./Container";
+import { Container } from "./Wrapper";
 import LeftNav from "./LeftNav";
 import RightNav from "./RightNav";
 import { Menu, X } from "lucide-react";

@@ -41,9 +41,9 @@ const RightNav = ({ showNav }) => {
         <div className="block lg:flex lg:gap-4">
           <Link
             href="/login"
-            className="block w-auto py-1 px-4 text-center bg-[#fff] border rounded text-[#000]  text-sm mb-4 lg:mb-0"
+            className="block w-auto py-1 px-4 text-center  border rounded text-[#000]  text-sm mb-4 lg:mb-0"
           >
-            Login
+            Logins
           </Link>
           <Link
             href="/signup"

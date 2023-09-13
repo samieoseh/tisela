@@ -80,3 +80,21 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+@layer components {
+  .t-container {
+    @apply flex justify-between my-12 items-center gap-8;
+  }
+  .t-image-bg {
+    @apply h-48 w-[12rem] bg-gray-500;
+  }
+  .t-text {
+    @apply w-[55%] flex flex-col justify-start items-center text-gray-950;
+  }
+  .t-quote {
+    @apply mt-4 text-sm;
+  }
+  .t-name {
+    @apply mt-8 underline;
+  }
+}

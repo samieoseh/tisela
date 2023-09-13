@@ -1,5 +1,5 @@
 "use client";
-import Container from "@/components/Container";
+import { Container, HeroContainer } from "@/components/Wrapper";
 import CourseCard from "@/components/CourseCard";
 import FeatureCard from "@/components/FeatureCard";
 import Logo from "@/components/Logo";
@@ -7,6 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Fade, Slide, Zoom } from "react-awesome-reveal";
 import { featuresList } from "@/lib/constants";
+import PopularCourseList from "@/components/PopularCourseList";
+import Testimonials from "@/components/Testimonials";
 
 const HomePage = () => {
   // const [userCookie, setCookie] = useState(null);
@@ -17,11 +19,12 @@ const HomePage = () => {
   // }, []);
 
   return (
-    <Container>
-      <main>
+    <main>
+      <HeroContainer>
+        {/* Hero Section */}
         <section
           id="home"
-          className="h-auto flex flex-col flex-wrap lg:flex lg:flex-row  lg:gap-8 lg:justify-between "
+          className=" lg:w-[80%] xl:w-[40%]  w-[90%] md:w-[90%] mx-auto h-auto flex flex-col flex-wrap lg:flex lg:flex-row  lg:gap-8 lg:justify-between "
         >
           <div className="mt-[25%] lg:mt-[20%] lg:w-2/4">
             <Slide duration={1500}>
@@ -52,7 +55,7 @@ const HomePage = () => {
           <Zoom>
             <div className="hidden lg:block w-[30rem] h-[30rem] mt-[15vh] relative flex-1">
               <Image
-                src="/hero.jpg"
+                src="/hero remove.png"
                 alt="hero"
                 layout="fill"
                 objectFit="cover"
@@ -61,138 +64,44 @@ const HomePage = () => {
             </div>
           </Zoom>
         </section>
+        {/* End of Hero Section */}
+      </HeroContainer>
+      <Container>
+        {/* Features Section */}
         <section
           id="features"
-          className="pt-[20%] md:pt-[10%] flex flex-col items-center justify-center"
+          className="mt-8 flex flex-col items-center justify-center"
         >
           <h2 className="text-center text-2xl font-bold ">
             KEY FEATURES JUST FOR YOU
           </h2>
           <div className="md:grid md:grid-cols-2">
-            <Fade cascade={true} duration={1000}>
+            <Fade cascade={true} duration={500}>
               {featuresList.map((feature, id) => (
                 <FeatureCard key={id} {...feature} />
               ))}
             </Fade>
           </div>
         </section>
+        {/* End of Features Section */}
+        {/* Popular Courses Section */}
         <section>
           <h2 className="text-center text-2xl font-bold mt-8">
             POPULAR COURSES
           </h2>
-          <p className="text-center text-xs mb-8">
+          <p className="text-center text-sm mb-8">
             Browse some of our high quality and popular courses
           </p>
-          <div className="flex flex-col gap-y-4 md:grid md:grid-cols-2 lg:grid lg:grid-cols-3 lg:gap-4 justify-center">
-            <CourseCard
-              title="Introduction to React and Next.js"
-              label="Intermediate"
-              price="$250"
-              starsCount={2}
-              reviewCounts={4500}
-              banner="/mona.jpg"
-            />
-            <CourseCard
-              title="Optimizing Next.js"
-              label="Expert"
-              price="$450"
-              starsCount={5}
-              reviewCounts={200}
-              banner="/mona.jpg"
-            />
-            <CourseCard
-              title="Vanilla Js"
-              label="Beginner"
-              price="$150"
-              starsCount={5}
-              reviewCounts={900}
-              banner="/mona.jpg"
-            />
-            <CourseCard
-              title="The Only Marketing Course you would ever need"
-              label="Advanced"
-              price="$950"
-              starsCount={4}
-              reviewCounts={1200}
-              banner="/mona.jpg"
-            />
-            <CourseCard
-              title="Build 6 Projects with Next.js"
-              label="Advanced"
-              price="$450"
-              starsCount={4}
-              reviewCounts={240}
-              banner="/mona.jpg"
-            />
-            <CourseCard
-              title="Svelte Toolkit"
-              label="Expert"
-              price="$1250"
-              starsCount={5}
-              reviewCounts={1900}
-              banner="/mona.jpg"
-            />
-          </div>
+          <PopularCourseList />
         </section>
-        <section className="mt-4">
-          <h2>WHAT PEOPLE ARE SAYING ABOUT US</h2>
-          <div>
-            <div>
-              <Image height={20} width={20} src="/mona.jpg" alt="user image" />
-              <quote>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                fringilla, libero a vehicula euismod, arcu ante venenatis orci,
-                sit amet fringilla{" "}
-              </quote>
-            </div>
-            <div>
-              <Image height={20} width={20} src="/mona.jpg" alt="user image" />
-              <quote>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                fringilla, libero a vehicula euismod, arcu ante venenatis orci,
-                sit amet fringilla{" "}
-              </quote>
-            </div>
-            <div>
-              <Image height={20} width={20} src="/mona.jpg" alt="user image" />
-              <quote>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                fringilla, libero a vehicula euismod, arcu ante venenatis orci,
-                sit amet fringilla{" "}
-              </quote>
-            </div>
-            <div>
-              <Image height={20} width={20} src="/mona.jpg" alt="user image" />
-              <quote>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                fringilla, libero a vehicula euismod, arcu ante venenatis orci,
-                sit amet fringilla{" "}
-              </quote>
-            </div>
-            <div>
-              <Image height={20} width={20} src="/mona.jpg" alt="user image" />
-              <quote>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                fringilla, libero a vehicula euismod, arcu ante venenatis orci,
-                sit amet fringilla{" "}
-              </quote>
-            </div>
-            <div>
-              <Image height={20} width={20} src="/mona.jpg" alt="user image" />
-              <quote>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                fringilla, libero a vehicula euismod, arcu ante venenatis orci,
-                sit amet fringilla{" "}
-              </quote>
-            </div>
-            <div>
-              <Image height={20} width={20} src="/mona.jpg" alt="user image" />
-              <quote>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                fringilla, libero a vehicula euismod, arcu ante venenatis orci,
-                sit amet fringilla{" "}
-              </quote>
-            </div>
+        {/* End of Popular Courses Section */}
+        <section className="mt-8">
+          <h2 className="text-center text-xl font-bold">Testimonials</h2>
+          <p className="text-center text-sm mb-8">
+            Some samples of what our happy customers are saying
+          </p>
+          <div className="lg:w-2/4 lg:mx-auto">
+            <Testimonials />
           </div>
         </section>
         <section>
@@ -234,8 +143,8 @@ const HomePage = () => {
             </div>
           </div>
         </footer>
-      </main>
-    </Container>
+      </Container>
+    </main>
   );
 };
 

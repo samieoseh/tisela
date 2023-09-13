@@ -38,7 +38,7 @@ const CourseCard = ({
             <p className="text-xs px-1 text-gray-500">({reviewCounts})</p>
           </div>
           <div className={`${levelStyle[label]} p-1 rounded-lg`}>
-            <p className="text-xs text-gray-900">{label}</p>
+            <p className="text-xs text-gray-200">{label}</p>
           </div>
         </div>
       </div>
