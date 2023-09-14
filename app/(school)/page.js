@@ -1,22 +1,28 @@
 "use client";
-import { Container, HeroContainer } from "@/components/Wrapper";
-import CourseCard from "@/components/CourseCard";
+import {
+  Container,
+  FooterContainer,
+  HeroContainer,
+} from "@/components/Wrapper";
+
 import FeatureCard from "@/components/FeatureCard";
 import Logo from "@/components/Logo";
 import Image from "next/image";
 import Link from "next/link";
 import { Fade, Slide, Zoom } from "react-awesome-reveal";
-import { featuresList } from "@/lib/constants";
+import { LucideTwitter, LucideFacebook, LucideLinkedin } from "lucide-react";
+import {
+  customerSupport,
+  featuresList,
+  legalAndPoliciesLink,
+} from "@/lib/constants";
 import PopularCourseList from "@/components/PopularCourseList";
 import Testimonials from "@/components/Testimonials";
+import { useState } from "react";
 
 const HomePage = () => {
-  // const [userCookie, setCookie] = useState(null);
-
-  // useEffect(() => {
-  //   const user = getCurrentUser();
-  //   setCookie(user);
-  // }, []);
+  const [showLegalAndPolicies, setShowLegalAndPolices] = useState(false);
+  const [showCustomerSupport, setShowCustomerSupport] = useState(false);
 
   return (
     <main>
@@ -72,7 +78,7 @@ const HomePage = () => {
           id="features"
           className="mt-8 flex flex-col items-center justify-center"
         >
-          <h2 className="text-center text-2xl font-bold ">
+          <h2 className="text-center text-xl font-bold ">
             KEY FEATURES JUST FOR YOU
           </h2>
           <div className="md:grid md:grid-cols-2">
@@ -86,7 +92,7 @@ const HomePage = () => {
         {/* End of Features Section */}
         {/* Popular Courses Section */}
         <section>
-          <h2 className="text-center text-2xl font-bold mt-8">
+          <h2 className="text-center text-xl font-bold mt-8">
             POPULAR COURSES
           </h2>
           <p className="text-center text-sm mb-8">
@@ -104,46 +110,110 @@ const HomePage = () => {
             <Testimonials />
           </div>
         </section>
-        <section>
-          <h2>MEET THE INSTRUCTORS</h2>
-        </section>
-        <footer>
-          <div>
+      </Container>
+      <FooterContainer>
+        <footer className="lg:w-[80%] xl:w-[40%]  w-[90%] md:w-[90%] mx-auto flex flex-col py-4 md:flex-row md:justify-between">
+          <div className="flex flex-row justify-between md:flex-col md:justify-normal">
             <Logo />
-            {/* Some quotes that automatically changes */}
-            <div>{/* External social media links */}</div>
+            <div className="flex flex-row justify-between gap-x-4 md:justify-normal md:mt-4">
+              <LucideFacebook
+                width={20}
+                height={20}
+                color="d1d5db"
+                className="fill-gray-300 hover:fill-blue-500 cursor-pointer transition-all duration-200 ease-in-out"
+              />
+              <LucideLinkedin
+                width={20}
+                height={20}
+                color="d1d5db"
+                className="fill-gray-300 hover:fill-blue-500 cursor-pointer transition-all duration-200 ease-in-out"
+              />
+              <LucideTwitter
+                width={20}
+                height={20}
+                color="d1d5db"
+                className="fill-gray-300 hover:fill-blue-500 cursor-pointer transition-all duration-200 ease-in-out"
+              />
+            </div>
           </div>
-          <div>
-            <div>
-              <h4>Legal and Polices</h4>
-              <Link href="/">Privacy Policy</Link>
-              <Link href="/">Terms of Service</Link>
-              <Link href="/">Refund Policy</Link>
-              <Link href="/">Accessibility Statement</Link>
-              <Link href="/">Cookie policy</Link>
-              <Link href="/">Terms and Condition</Link>
-              <Link href="/">Copyright Information</Link>
+          <div className="mt-4 md:flex md:justify-between md:gap-16">
+            <div
+              onClick={() => setShowLegalAndPolices(!showLegalAndPolicies)}
+              className="cursor-pointer md:cursor-default"
+            >
+              <h4 className="text-gray-300 border-b md:border-none border-gray-500 pt-4">
+                Legal and Polices
+              </h4>
+
+              <div
+                className={` ${
+                  showLegalAndPolicies
+                    ? "flex flex-col"
+                    : "hidden  md:flex md:flex-col"
+                }`}
+              >
+                {legalAndPoliciesLink.map((link, id) => (
+                  <Link
+                    href="/"
+                    key={id}
+                    className="pt-4 text-gray-400 text-sm hover:text-white"
+                  >
+                    {link}
+                  </Link>
+                ))}
+              </div>
             </div>
-            <div>
-              <h4>Customer Support</h4>
-              <Link href="/">FAQs</Link>
-              <Link href="/">Contact Us</Link>
-              <Link href="/">Support</Link>
-              <Link href="/">Feedback and Suggestion</Link>
+            <div
+              onClick={() => setShowCustomerSupport(!showCustomerSupport)}
+              className="cursor-pointer md:cursor-default"
+            >
+              <h4 className="text-gray-300 border-b md:border-none border-gray-500 pt-4">
+                Customer Support
+              </h4>
+              <div
+                className={`flex flex-col ${
+                  showCustomerSupport
+                    ? "flex flex-col"
+                    : "hidden md:flex md:flex-col"
+                }`}
+              >
+                {customerSupport.map((link, id) => (
+                  <Link
+                    href="/"
+                    key={id}
+                    className="pt-4 text-gray-400 text-sm "
+                  >
+                    {link}
+                  </Link>
+                ))}
+              </div>
             </div>
-            <div>
-              <h4>Content and Information</h4>
-              <Link href="/">Blogs</Link>
-              <label>Subscribe to our newsletter</label>
-              <form>
-                <input type="email" />
-                <button>Suscribe Now</button>
-              </form>
-              <Link href="/">Careers</Link>
+            <div className="flex flex-col mt-4 md:justify-between">
+              <div className="flex flex-col">
+                <Link href="/" className="text-gray-300 text-sm">
+                  Blogs
+                </Link>
+                <label className="pt-2 text-sm text-gray-300">
+                  Subscribe to our newsletter
+                </label>
+                <form className="mt-2">
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    className="py-1 px-2 rounded text-sm outline-none text-gray-500 mr-4"
+                  />
+                  <button className="bg-blue-500 rounded px-2 py-1 text-gray-300 text-sm">
+                    Suscribe Now
+                  </button>
+                </form>
+              </div>
+              <p className="text-center text-xs text-gray-400 mt-4">
+                &copy; 2023
+              </p>
             </div>
           </div>
         </footer>
-      </Container>
+      </FooterContainer>
     </main>
   );
 };
