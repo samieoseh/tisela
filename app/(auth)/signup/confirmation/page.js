@@ -1,6 +1,6 @@
 "use client";
 
-import account from "@/service/appwriteConfig";
+import { account } from "@/service/appwriteConfig";
 import { useRouter, useSearchParams } from "next/navigation";
 
 const ConfirmationPage = () => {
@@ -12,7 +12,7 @@ const ConfirmationPage = () => {
   if (userId) {
     const promise = account.updateVerification(userId, secret);
     console.log(userId, promise);
-    router.push("/");
+    router.push("/profile");
   }
 
   return <></>;

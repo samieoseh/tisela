@@ -2,28 +2,32 @@
 import { account } from "@/service/appwriteConfig";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import "../../global.css";
 import Link from "next/link";
 import { setCookie } from "cookies-next";
 
 const formTemplate = [
-  { type: "email", name: "email", label: "Email address" },
-  { type: "password", name: "password", label: "Password" },
+  { type: "email", name: "email", label: "Email address", id: "email" },
+  { type: "password", name: "password", label: "Password", id: "password" },
 ];
 
 const LoginPage = () => {
   const router = useRouter();
-  const [errorState, setErrorState] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (formObj) => {
-    console.log("Login", formObj.email, formObj.password);
     try {
       await account.createEmailSession(formObj.email, formObj.password);
       setCookie("auth", true, { maxAge: 60 * 60 * 60 * 6 * 24 });
-      router.push("/");
+      router.push("/profile");
     } catch (error) {
-      setErrorState(true);
+      if (
+        error.type === "general_argument_invalid" ||
+        error.type === "user_invalid_credentials"
+      ) {
+        console.log(error.type);
+        setErrorMessage("Invalid email and/or password");
+      }
     } finally {
       setLoading(false);
     }
@@ -49,6 +53,7 @@ const LoginPage = () => {
               type={item.type}
               name={item.name}
               className="border border-gray-400 outline-none py-2 px-4 my-3 rounded focus:border-blue-500 text-sm"
+              data-testid={item.id}
             />
           </div>
         ))}
@@ -57,14 +62,13 @@ const LoginPage = () => {
           className={`w-full py-2 bg-blue-500 text-white rounded mt-5
           ${loading ? "opacity-50" : "opacity-100"}`}
           onClick={() => setLoading(true)}
+          data-testid="signin-btn"
         >
           {loading ? "Signing In..." : "Sign In"}
         </button>
       </form>
       <div className="mx-auto mt-2 text-sm">
-        {errorState === true && (
-          <p className="text-[red]">Invalid credentials</p>
-        )}
+        {errorMessage !== "" && <p className="text-[red]">{errorMessage}</p>}
       </div>
       <p className="mx-auto mt-2 text-sm pb-4">
         Don&quot;t have an account,{" "}

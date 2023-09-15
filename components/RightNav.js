@@ -43,7 +43,7 @@ const RightNav = ({ showNav }) => {
             href="/login"
             className="block w-auto py-1 px-4 text-center  border rounded text-[#000]  text-sm mb-4 lg:mb-0"
           >
-            Logins
+            Login
           </Link>
           <Link
             href="/signup"

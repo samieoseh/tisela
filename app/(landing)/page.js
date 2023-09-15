@@ -59,13 +59,14 @@ const HomePage = () => {
             </Slide>
           </div>
           <Zoom>
-            <div className="hidden lg:block w-[30rem] h-[30rem] mt-[15vh] relative flex-1">
+            <div className="">
               <Image
                 src="/hero remove.png"
                 alt="hero"
-                layout="fill"
-                objectFit="cover"
-                className=""
+                height={333}
+                width={375}
+                objectFit="contain"
+                className="mt-[15vh] z-40"
               />
             </div>
           </Zoom>
@@ -101,7 +102,7 @@ const HomePage = () => {
           <PopularCourseList />
         </section>
         {/* End of Popular Courses Section */}
-        <section className="mt-8">
+        <section className="mt-8 overflow-hidden">
           <h2 className="text-center text-xl font-bold">Testimonials</h2>
           <p className="text-center text-sm mb-8">
             Some samples of what our happy customers are saying
