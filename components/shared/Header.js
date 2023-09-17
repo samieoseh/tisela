@@ -77,7 +77,7 @@ const Header = () => {
           <input
             type="text"
             placeholder="Search"
-            className={`pl-2 outline-none border border-gray-700 py-1 mt-2 flex-1 text-sm text-gray-700 bg-[#f9f9f9] z-20 ${
+            className={`pl-2 outline-none rounded border border-gray-500 py-1 mt-2 flex-1 text-sm text-gray-700 bg-[#f9f9f9] z-20 ${
               showSearch ? "" : "hidden"
             }`}
           />
