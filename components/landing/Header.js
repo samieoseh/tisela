@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
-import { Container } from "./Wrapper";
+import { Container } from "../shared/Wrapper";
 import LeftNav from "./LeftNav";
 import RightNav from "./RightNav";
 import { Menu, X } from "lucide-react";
-import Logo from "./Logo";
+import Logo from "../shared/Logo";
 
 const Header = () => {
   const [showNav, setShowNav] = useState(false);

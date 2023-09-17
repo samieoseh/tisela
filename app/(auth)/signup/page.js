@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "@/components/Button";
-import InputField from "@/components/InputField";
+import Button from "@/components/auth/Button";
+import InputField from "@/components/auth/InputField";
 import { account, databases } from "@/service/appwriteConfig";
 import { v4 as uuidv4 } from "uuid";
 import Link from "next/link";
@@ -66,11 +66,11 @@ const SignUpPage = () => {
         storeToDatabase(user_id, formObj.name, formObj.email);
 
         if (process.env.NEXT_PUBLIC_ENVIRONMENT === "development") {
-          const verifiedUser = await account.createVerification(
+          await account.createVerification(
             "http://localhost:3000/signup/confirmation",
           );
         } else {
-          const verifiedUser = await account.createVerification(
+          await account.createVerification(
             "https://tisela.vercel.app/signup/confirmation",
           );
         }

@@ -1,5 +1,7 @@
-import "../global.css";
+import Header from "@/components/shared/Header";
 import { Poppins } from "next/font/google";
+import Footer from "@/components/shared/Footer";
+import "../global.css";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 
@@ -12,7 +14,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${poppins.className} bg-[#f9f9f9] overflow-x-hidden`}>
+        <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

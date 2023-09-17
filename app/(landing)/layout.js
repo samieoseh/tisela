@@ -1,5 +1,7 @@
-import Header from "@/components/Header";
+import Header from "@/components/landing/Header";
+import Footer from "@/components/shared/Footer";
 import "../global.css";
+
 import { Poppins } from "next/font/google";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
@@ -15,6 +17,7 @@ export default function RootLayout({ children }) {
       <body className={`${poppins.className} bg-[#f9f9f9] overflow-x-hidden`}>
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

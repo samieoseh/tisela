@@ -2,7 +2,10 @@ import CourseCard from "./CourseCard";
 
 const PopularCourseList = () => {
   return (
-    <div className="flex flex-col gap-y-4 md:grid md:grid-cols-2 lg:grid lg:grid-cols-3 lg:gap-4 justify-center">
+    <div
+      id="courses"
+      className="flex flex-col gap-y-4 md:grid md:grid-cols-2 lg:grid lg:grid-cols-3 lg:gap-4 justify-center"
+    >
       <CourseCard
         title="Introduction to React and Next.js"
         label="Intermediate"

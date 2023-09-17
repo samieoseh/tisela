@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 
-import ProfileTab from "@/components/ProfileTab.";
+import ProfileTab from "@/components/profile/ProfileTab.";
 import { account, databases } from "@/service/appwriteConfig";
 import { Query } from "appwrite";
 import { useEffect, useState } from "react";

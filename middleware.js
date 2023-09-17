@@ -1,15 +1,18 @@
-import { hasCookie } from "cookies-next";
 import { NextResponse } from "next/server";
 
 export function middleware(request) {
   const cookie = request.cookies.get("auth");
+  const protectedPathsWhenLoggedIn = ["/", "/login", "/signup"];
+  const currentPath = request.nextUrl.pathname;
 
   if (cookie) {
-    return null;
+    // user has logged in
+    if (protectedPathsWhenLoggedIn.includes(currentPath)) {
+      return NextResponse.redirect(new URL("/profile", request.url));
+    }
   }
-  return NextResponse.redirect(new URL("/login", request.url));
 }
 
 export const config = {
-  matcher: ["/profile"],
+  matcher: ["/", "/login", "/signup"],
 };

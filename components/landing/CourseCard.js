@@ -46,10 +46,4 @@ const CourseCard = ({
   );
 };
 
-// title="Introduction to React and Next.js"
-//             label="Beginner"
-//             price="$250"
-//             stars={4}
-//             reviewCounts={1200}
-//             banner="./mona.jpg"
 export default CourseCard;

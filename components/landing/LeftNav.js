@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { links } from "@/lib/constants";
+import { landingPageLinks } from "@/lib/constants";
 
 const LeftNav = () => {
   return (
     <ul className="lg:flex lg:items-center lg:gap-x-8">
-      {links.map((link, id) => (
+      {landingPageLinks.map((link, id) => (
         <li key={id} className="p-4 lg:p-0">
           <Link href={link.href} className="text-sm">
             {link.text}
