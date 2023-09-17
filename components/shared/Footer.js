@@ -11,10 +11,10 @@ const Footer = () => {
   const [showCustomerSupport, setShowCustomerSupport] = useState(false);
   return (
     <FooterContainer>
-      <footer className="lg:w-[80%] xl:w-[40%]  w-[90%] md:w-[90%] mx-auto flex flex-col py-4 md:flex-row md:justify-between">
-        <div className="flex flex-row justify-between md:flex-col md:justify-normal">
+      <footer className="lg:w-[80%] xl:w-[40%]  w-[90%] md:w-[90%] mx-auto flex flex-col py-4 lg:flex-row lg:justify-between">
+        <div className="flex flex-row justify-between lg:flex-col lg:justify-normal">
           <Logo />
-          <div className="flex flex-row justify-between gap-x-4 md:justify-normal md:mt-4">
+          <div className="flex flex-row justify-between gap-x-4 lg:justify-normal lg:mt-4">
             <LucideFacebook
               width={20}
               height={20}
@@ -35,12 +35,12 @@ const Footer = () => {
             />
           </div>
         </div>
-        <div className="mt-4 md:flex md:justify-between md:gap-16">
+        <div className="mt-4 lg:flex lg:justify-between lg:gap-16">
           <div
             onClick={() => setShowLegalAndPolices(!showLegalAndPolicies)}
-            className="cursor-pointer md:cursor-default"
+            className="cursor-pointer lg:cursor-default"
           >
-            <h4 className="text-gray-300 border-b md:border-none border-gray-500 pt-4">
+            <h4 className="text-gray-300 border-b lg:border-none border-gray-500 pt-4">
               Legal and Polices
             </h4>
 
@@ -48,7 +48,7 @@ const Footer = () => {
               className={` ${
                 showLegalAndPolicies
                   ? "flex flex-col"
-                  : "hidden  md:flex md:flex-col"
+                  : "hidden  lg:flex lg:flex-col"
               }`}
             >
               {legalAndPoliciesLink.map((link, id) => (
@@ -64,16 +64,16 @@ const Footer = () => {
           </div>
           <div
             onClick={() => setShowCustomerSupport(!showCustomerSupport)}
-            className="cursor-pointer md:cursor-default"
+            className="cursor-pointer lg:cursor-default"
           >
-            <h4 className="text-gray-300 border-b md:border-none border-gray-500 pt-4">
+            <h4 className="text-gray-300 border-b lg:border-none border-gray-500 pt-4">
               Customer Support
             </h4>
             <div
               className={`flex flex-col ${
                 showCustomerSupport
                   ? "flex flex-col"
-                  : "hidden md:flex md:flex-col"
+                  : "hidden lg:flex lg:flex-col"
               }`}
             >
               {customerSupportLinks.map((link, id) => (
@@ -83,7 +83,7 @@ const Footer = () => {
               ))}
             </div>
           </div>
-          <div className="flex flex-col mt-4 md:justify-between">
+          <div className="flex flex-col mt-4 lg:justify-between">
             <div className="flex flex-col">
               <Link href="/" className="text-gray-300 text-sm">
                 Blogs

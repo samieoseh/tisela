@@ -6,6 +6,7 @@ import { account, databases } from "@/service/appwriteConfig";
 import { Query } from "appwrite";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Container } from "@/components/shared/Wrapper";
 
 const ProfilePage = ({ user }) => {
   const [userData, setUserData] = useState(null);
@@ -26,9 +27,9 @@ const ProfilePage = ({ user }) => {
   }, []);
 
   return (
-    <div>
+    <Container>
       {userData && (
-        <main className="w-11/12 mx-auto my-8 flex flex-col">
+        <main className="mt-16 w-11/12 mx-auto my-8 flex flex-col">
           <Link href="/">Go to Home</Link>
           <div className="flex flex-col items-center my-4">
             <div className="h-[64px] w-[64px] relative my-2">
@@ -88,7 +89,7 @@ const ProfilePage = ({ user }) => {
           <ProfileTab />
         </main>
       )}
-    </div>
+    </Container>
   );
 };
 

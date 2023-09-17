@@ -22,7 +22,7 @@ export const HeroContainer = ({ children, className, ...props }) => {
 
 export const FooterContainer = ({ children, className, ...props }) => {
   return (
-    <div className={`w-full bg-gray-800 ${className}`} {...props}>
+    <div className={`w-full bg-gray-800 mx-auto ${className}`} {...props}>
       {children}
     </div>
   );
