@@ -1,37 +1,15 @@
 "use client";
-import { account } from "@/service/appwriteConfig";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import Link from "next/link";
-import { setCookie } from "cookies-next";
 
-const formTemplate = [
-  { type: "email", name: "email", label: "Email address", id: "email" },
-  { type: "password", name: "password", label: "Password", id: "password" },
-];
+import Link from "next/link";
+import { useAuth } from "@/hooks/useAuth";
+import { formTemplate } from "@/lib/constants";
 
 const LoginPage = () => {
-  const router = useRouter();
-  const [errorMessage, setErrorMessage] = useState("");
-  const [loading, setLoading] = useState(false);
-
+  const { errorMessageList, status, login } = useAuth();
   const handleSubmit = async (formObj) => {
-    try {
-      await account.createEmailSession(formObj.email, formObj.password);
-      setCookie("auth", true, { maxAge: 60 * 60 * 60 * 6 * 24 });
-      router.push("/profile");
-    } catch (error) {
-      if (
-        error.type === "general_argument_invalid" ||
-        error.type === "user_invalid_credentials"
-      ) {
-        console.log(error.type);
-        setErrorMessage("Invalid email and/or password");
-      }
-    } finally {
-      setLoading(false);
-    }
+    await login(formObj.email, formObj.password);
   };
+  console.log(status);
   return (
     <div className="w-full flex flex-col mx-auto mt-0 bg-[#f9f9f9] rounded border">
       <form
@@ -60,16 +38,23 @@ const LoginPage = () => {
 
         <button
           className={`w-full py-2 bg-blue-500 text-white rounded mt-5
-          ${loading ? "opacity-50" : "opacity-100"}`}
-          onClick={() => setLoading(true)}
-          data-testid="signin-btn"
+          ${status == "loading" ? "opacity-50" : "opacity-100"}`}
         >
-          {loading ? "Signing In..." : "Sign In"}
+          {status === "loading" ? "Signing In..." : "Sign In"}
         </button>
       </form>
-      <div className="mx-auto mt-2 text-sm">
-        {errorMessage !== "" && <p className="text-[red]">{errorMessage}</p>}
-      </div>
+      {status === "failed" && (
+        <ul className="flex flex-col items-center justify-center flex-wrap">
+          {errorMessageList.map((msg, index) => (
+            <li
+              key={index}
+              className="text-sm md:text-xs text-red-500 mt-1 list-disc"
+            >
+              {msg}
+            </li>
+          ))}
+        </ul>
+      )}
       <p className="mx-auto mt-2 text-sm pb-4">
         Don&quot;t have an account,{" "}
         <Link href="/signup" className="underline text-blue-500 ">

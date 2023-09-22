@@ -9,7 +9,7 @@ import Logo from "../shared/Logo";
 const Header = () => {
   const [showNav, setShowNav] = useState(false);
   return (
-    <header className="border-b bg-border-300 fixed top-0 right-0 w-full z-40">
+    <header className="border-b bg-border-300 fixed top-0 right-0 w-full z-40 bg-[#f9f9f9]">
       <Container className="flex justify-between items-center py-2 lg:py-0 flex-row lg:items-center">
         <Logo />
         {!showNav && (

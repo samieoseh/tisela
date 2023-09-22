@@ -1,60 +1,51 @@
 "use client";
 import Link from "next/link";
 import Logo from "./Logo";
-import { LucideChevronDown, LucideMenu, LucideSearch } from "lucide-react";
+import { LucideChevronDown, LucideMenu, LucideSearch, X } from "lucide-react";
 import { Container, FooterContainer } from "./Wrapper";
 import Avatar from "./Avatar";
 import { useState } from "react";
+import { mainLinks } from "@/lib/constants";
+import { useRouter } from "next/navigation";
+import { deleteCookie } from "cookies-next";
+import { account } from "@/service/appwriteConfig";
 
 const Header = () => {
-  const handleSubmit = () => {
-    console.log("Searched");
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await account.deleteSession("current");
+    deleteCookie("auth");
+    router.push("/login");
   };
+
+  const [showNav, setShowNav] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   return (
     <header className="fixed top-0 right-0 w-full border-b border-gray-300 z-20 bg-[#f9f9f9]">
       <Container className="py-2">
         <div className="flex justify-between items-center">
           <Logo />
-          <ul className="hidden">
-            <li>
-              <Link href="/courses">Courses</Link>
-            </li>
-            <li>
-              <Link href="/profile">Profile</Link>
-            </li>
-            <li>
-              <Link href="/learning">Learning</Link>
-            </li>
-            <li>
-              <Link href="/saved">Saved Courses</Link>
-            </li>
-            <li>
-              <Link href="/notifications">Notifications</Link>
-            </li>
-            <li>
-              <Link href="/messages">Messages</Link>
-            </li>
-            <li>
-              <Link href="/preferences">Preferences</Link>
-            </li>
-            <li>
-              <Link href="/settings">Settings</Link>
-            </li>
-            <br />
-            <li>
-              <Link href="/help">Help</Link>
-            </li>
-            <li>
-              <Link href="/faq">FaQ</Link>
-            </li>
-            <li>
-              <Link href="/feedback">Feedback and Suggestion</Link>
-            </li>
-            <br />
-            <li>
-              <Link href="/logout">Logout</Link>
-            </li>
+          <ul
+            className={`fixed h-full top-0 right-0 bg-white py-10 px-4 w-2/4 text-sm transformtransition-all duration-300 ease-in-out ${
+              showNav ? "translate-x-0" : " translate-x-full "
+            }`}
+          >
+            <X
+              className="fixed top-0 right-0 m-4 cursor-pointer"
+              onClick={() => setShowNav(!showNav)}
+            />
+            {mainLinks.map((link, index) => (
+              <li key={index} className="mt-6">
+                <Link href={link.href}>{link.text}</Link>
+              </li>
+            ))}
+            <button
+              className={`${"mt-4 py-1 px-4 block w-full text-center border border-gray-500 rounded text-[#000]"}`}
+              onClick={handleLogout}
+            >
+              Log Out
+            </button>
           </ul>
           <div className="flex items-center">
             <LucideSearch
@@ -64,7 +55,10 @@ const Header = () => {
               onClick={() => setShowSearch(!showSearch)}
             />
             <Avatar />
-            <LucideMenu />
+            <LucideMenu
+              className="cursor-pointer"
+              onClick={() => setShowNav(!showNav)}
+            />
           </div>
         </div>
         <form

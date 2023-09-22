@@ -1,93 +1,83 @@
 "use client";
 import Image from "next/image";
-
 import ProfileTab from "@/components/profile/ProfileTab.";
 import { account, databases } from "@/service/appwriteConfig";
 import { Query } from "appwrite";
+import { LucideEdit } from "lucide-react";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { Container } from "@/components/shared/Wrapper";
 
-const ProfilePage = ({ user }) => {
+const ProfilePage = () => {
   const [userData, setUserData] = useState(null);
-  const [verificationStatus, setVerificationStatus] = useState(false);
+  const [userDetails, setUserDetails] = useState(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
       const user = await account.get();
-      setVerificationStatus(user.emailVerification ? true : false);
+      setUserData(user);
       const data = await databases.listDocuments(
         process.env.NEXT_PUBLIC_DATABASE_ID,
         process.env.NEXT_PUBLIC_COLLECTION_ID,
         [Query.equal("email", user.email)],
       );
-      setUserData(data.documents[0]);
+      setUserDetails(data.documents[0]);
     };
     fetchUserData();
   }, []);
 
+  console.log(userData, userDetails);
+
   return (
-    <Container>
-      {userData && (
-        <main className="mt-16 w-11/12 mx-auto my-8 flex flex-col">
-          <Link href="/">Go to Home</Link>
-          <div className="flex flex-col items-center my-4">
-            <div className="h-[64px] w-[64px] relative my-2">
-              <Image
-                src="/mona.jpg"
-                alt="user photo"
-                layout="fill"
-                objectFit="cover"
-                className="rounded-full "
-              />
+    <Container className="mt-16">
+      {userData && userDetails ? (
+        <div className="w-full flex flex-col justify-center items-center pb-4">
+          <LucideEdit className="" />
+          <div className="w-full md:w-[70%] items-center">
+            <div className="flex flex-col items-center  md:flex-row md:flex-start">
+              <div>
+                <div className="h-16 w-16 md:h-32 md:w-32   rounded-full relative overflow-hidden">
+                  <Image
+                    layout="fill"
+                    objectFit="cover"
+                    objectPosition="center"
+                    alt="user photo"
+                    src="/mona.jpg"
+                  />
+                </div>
+              </div>
+              <div className="md:ml-8">
+                <p className="text-sm text-center md:text-left text-gray-500 my-1">
+                  @{userDetails.username}
+                </p>
+                <h1 className="text-2xl text-center md:text-left uppercase my-2 font-bold">
+                  {userData.name}
+                </h1>
+                <p className="text-sm text-gray-500 md:text-left">
+                  {userDetails.bio}
+                </p>
+              </div>
             </div>
-            <h1 className="flex justify-between items-center text-2xl font-bold my-2 uppercase">
-              {userData.name}
-              {verificationStatus && (
-                <span className="px-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="green"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              )}
-            </h1>
-            <p className="text-center text-gray-600">{userData.email}</p>
-            <p>{userData.city}</p>
-            <p>Current Level: {userData.current_level}</p>
-          </div>
-          <div className="flex items-center gap-8 flex-col flex-wrap mt-8">
-            <div className="bg-white w-36 rounded p-4 shadow-sm">
-              <p className="text-center text-4xl font-bold">
-                {userData.completed}
-              </p>
-              <p className="text-center text-xl pt-2">Lessons Completed</p>
-            </div>
-            <div className="bg-white w-36 rounded p-4 shadow-sm">
-              <p className="text-center text-4xl font-bold">
-                {userData.practice}
-              </p>
-              <p className="text-center text-xl pt-2">
-                Practice Questions Completed
-              </p>
-            </div>
-            <div className="bg-white w-36 rounded p-4 shadow-sm">
-              <p className="text-center text-4xl font-bold">
-                {userData.average}
-              </p>
-              <p className="text-center text-xl pt-2">Average Score</p>
-            </div>
+            <div className="w-full flex justify-between mt-8 bg-gray-100 shadow-md">
+              <div className="flex flex-col items-center px-2 py-2 border flex-1">
+                <h4 className="text-2xl">{userDetails.completed}</h4>
+                <p className="text-sm">Completed</p>
+              </div>
+              <div className="h-auto border-l border-gray-400 "></div>
+              <div className="flex flex-col items-center px-2 py-2 flex-1">
+                <h4 className="text-2xl">{userDetails.pending}</h4>
+                <p className="text-sm">Pending</p>
+              </div>
+              <div className="h-auto border-l border-gray-400 "></div>
+              <div className="flex flex-col items-center px-2 py-2 flex-1">
+                <h4 className="text-2xl">{userDetails.score}</h4>
+                <p className="text-sm">Score</p>
+              </div>
+            </div>{" "}
           </div>
           <ProfileTab />
-        </main>
+        </div>
+      ) : (
+        <div>Loading</div>
       )}
     </Container>
   );

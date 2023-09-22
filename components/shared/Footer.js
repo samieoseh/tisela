@@ -10,7 +10,7 @@ const Footer = () => {
   const [showLegalAndPolicies, setShowLegalAndPolices] = useState(false);
   const [showCustomerSupport, setShowCustomerSupport] = useState(false);
   return (
-    <FooterContainer>
+    <FooterContainer className="mt-8">
       <footer className="lg:w-[80%] xl:w-[40%]  w-[90%] md:w-[90%] mx-auto flex flex-col py-4 lg:flex-row lg:justify-between">
         <div className="flex flex-row justify-between lg:flex-col lg:justify-normal">
           <Logo />
@@ -97,7 +97,7 @@ const Footer = () => {
                   placeholder="Email"
                   className="py-1 px-2 rounded text-sm outline-none text-gray-500 mr-4"
                 />
-                <button className="bg-blue-500 rounded px-2 py-1 text-gray-300 text-sm">
+                <button className="mt-2 bg-blue-500 rounded px-2 py-1 text-gray-100 text-sm">
                   Suscribe Now
                 </button>
               </form>

@@ -1,24 +1,24 @@
+"use client";
 import { useState } from "react";
-import CompletedCourses from "./CompletedCourses";
-import Discussion from "./Discussion";
-import ProfileCourses from "./ProfileCourses";
+import CourseList from "../shared/CourseList";
 
 const ProfileTab = () => {
   const [slice, setSlice] = useState(0);
-  const buttons = [
-    { text: "Courses" },
-    { text: "Completed" },
-    { text: "Discussion" },
-  ];
 
+  const buttons = [
+    { text: "Enrolled" },
+    { text: "Completed" },
+    { text: "Saved" },
+  ];
+  const courses = [];
   return (
-    <div>
-      <div className="flex justify-between rounded bg-gray-200 p-2 mt-4">
+    <div className="w-full">
+      <div className="flex justify-between p-2 mt-4">
         {buttons.map((btn, id) => (
           <button
             key={id}
-            className={`flex-1 py-2 rounded shadow:sm ${
-              id === slice ? "bg-white" : ""
+            className={`flex-1 py-2 shadow:sm  ${
+              id === slice ? "text-gray-900 border-b-2 border-blue-500" : ""
             } ${id !== slice ? "text-gray-600" : ""}`}
             onClick={() => setSlice(id)}
           >
@@ -27,9 +27,9 @@ const ProfileTab = () => {
         ))}
       </div>
       <div>
-        {slice === 0 && <ProfileCourses />}
-        {slice === 1 && <CompletedCourses />}
-        {slice === 2 && <Discussion />}
+        {slice === 0 && <CourseList courses={courses} />}
+        {slice === 1 && <CourseList courses={courses} />}
+        {slice === 2 && <CourseList courses={courses} />}
       </div>
     </div>
   );
