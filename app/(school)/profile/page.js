@@ -6,8 +6,10 @@ import { Query } from "appwrite";
 import { LucideEdit } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Container } from "@/components/shared/Wrapper";
+import { useRouter } from "next/navigation";
 
 const ProfilePage = () => {
+  const router = useRouter();
   const [userData, setUserData] = useState(null);
   const [userDetails, setUserDetails] = useState(null);
 
@@ -25,13 +27,15 @@ const ProfilePage = () => {
     fetchUserData();
   }, []);
 
-  console.log(userData, userDetails);
+  const handleEdit = () => {
+    router.push("/edit-profile");
+  };
 
   return (
     <Container className="mt-16">
       {userData && userDetails ? (
         <div className="w-full flex flex-col justify-center items-center pb-4">
-          <LucideEdit className="" />
+          <LucideEdit className="cursor-pointer" onClick={handleEdit} />
           <div className="w-full md:w-[70%] items-center">
             <div className="flex flex-col items-center  md:flex-row md:flex-start">
               <div>

@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "@/components/auth/Button";
-import InputField from "@/components/auth/InputField";
+import Button from "@/components/shared/Button";
+import InputField from "@/components/shared/InputField";
 import Link from "next/link";
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
@@ -11,17 +11,20 @@ const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [step, setStep] = useState(1);
-  const { signup, errorMessageList } = useAuth();
+  const { status, signup, errorMessageList } = useAuth();
 
   const handleSubmit = async (formObj) => {
     await signup(formObj.email, formObj.password, formObj.name);
-    // alert("Verification message has been sent to the provided email");
+  };
+
+  if (status === "success") {
     // setName("");
     // setEmail("");
     // setPassword("");
     // setStep(1);
-  };
+  }
 
+  console.log(status);
   return (
     <div className="w-full px-8">
       <div className="flex justify-between mt-4 mb-12">
@@ -77,14 +80,15 @@ const SignUpPage = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         )}
-        <ul className="ml-4">
-          {errorMessageList.map((msg, index) => (
-            <li key={index} className="text-sm text-red-500 mt-1 list-disc">
-              {msg}
-            </li>
-          ))}
-        </ul>
-
+        {status === "failed" && (
+          <ul className="ml-4">
+            {errorMessageList.map((msg, index) => (
+              <li key={index} className="text-sm text-red-500 mt-1 list-disc">
+                {msg}
+              </li>
+            ))}
+          </ul>
+        )}
         <div
           className={`w-full flex ${
             step > 1 ? "justify-between" : "justify-end"
@@ -92,15 +96,17 @@ const SignUpPage = () => {
         >
           {step > 1 && (
             <Button
-              text={"Back"}
               className="bg-white text-blue-500 border"
               onClick={step > 1 ? () => setStep(step - 1) : null}
-            />
+            >
+              Back
+            </Button>
           )}
 
           <Button
-            text={step < 3 ? "Next" : "Sign Up"}
-            className="bg-blue-500 text-white"
+            className={`bg-blue-500 text-white ${
+              status === "loading" ? "opacity-50" : "opacity:0"
+            }`}
             onClick={
               step < 3
                 ? () => {
@@ -110,7 +116,13 @@ const SignUpPage = () => {
                     handleSubmit({ name, email, password });
                   }
             }
-          />
+          >
+            {status === "loading"
+              ? "Signing Up..."
+              : step < 3
+              ? "Next"
+              : "Sign Up"}
+          </Button>
         </div>
       </div>
       <p className="text-center text-sm mt-6 text-gray-500">

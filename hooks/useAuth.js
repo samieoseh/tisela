@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { setCookie } from "cookies-next";
-import { account, databases } from "@/service/appwriteConfig";
+import { setCookie, deleteCookie } from "cookies-next";
+import { account } from "@/service/appwriteConfig";
 import { v4 as uuidv4 } from "uuid";
-import { generateFromEmail } from "unique-username-generator";
+import { isFormClean, storeToDatabase } from "@/lib/customUtils";
 
 export const useAuth = () => {
   const router = useRouter();
@@ -13,36 +13,46 @@ export const useAuth = () => {
   const login = async (email, password) => {
     setStatus("loading");
     setErrorMessageList([]);
+    const { formClean, errors } = isFormClean(email, password, null);
 
-    if (isFormClean(email, password)) {
+    if (formClean) {
       try {
         await account.createEmailSession(email, password);
         setCookie("auth", true, { maxAge: 60 * 60 * 60 * 6 * 24 });
         setStatus("success");
         router.push("/profile");
       } catch (error) {
-        console.log(error.type);
+        const errors = [];
         if (error.type === "user_invalid_credentials") {
           setStatus("failed");
-          const errors = ["Invalid email and/or password"];
+          errors.push("Invalid email and/or password");
           setErrorMessageList(errors);
         }
         if (error.type === "general_rate_limit_exceeded") {
           setStatus("failed");
-          const errors = [
-            "Exceeded Api call limit, please try again after 1 hour",
-          ];
-          setErrorMessageList(errors);
+          errors.push("Exceeded Api call limit, try again after 1 hour");
         }
+        setErrorMessageList(errors);
       }
     } else {
       setStatus("failed");
+      setErrorMessageList(errors);
     }
   };
 
-  const signup = async (name, email, password) => {
+  const logout = async () => {
+    await account.deleteSession("current");
+    deleteCookie("auth");
+    router.push("/login");
+  };
+
+  const signup = async (email, password, name) => {
+    setStatus("loading");
     setErrorMessageList([]);
-    if (isFormClean(name, email, password)) {
+    const { formClean, errors } = isFormClean(email, password, name);
+    console.log(email);
+
+    if (formClean) {
       try {
         const userId = uuidv4();
         await account.create(userId, email, password, name);
@@ -60,48 +70,17 @@ export const useAuth = () => {
             "https://tisela.vercel.app/signup/confirmation",
           );
         }
+        setStatus("success");
       } catch (error) {
         if (error.type === "user_already_exists") {
           const errors = ["User with provided email already exists"];
           setErrorMessageList(errors);
         }
       }
+    } else {
+      setErrorMessageList(errors);
+      setStatus("failed");
     }
-  };
-
-  const isFormClean = (email, password, name = null) => {
-    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    const errors = [];
-
-    if (name !== null && name.length === 0) {
-      errors.push("Name cannot be empty");
-    }
-
-    if (email.length === 0) {
-      errors.push("Email cannot be empty");
-    } else if (!emailRegex.test(email)) {
-      errors.push("Email must be of this format: test@example.com");
-    }
-
-    if (password.length < 8) {
-      errors.push("Password must contain at least 8 characters");
-    }
-    setErrorMessageList(errors);
-    const formIsClean = errors.length === 0 ? true : false;
-    return formIsClean;
-  };
-
-  const storeToDatabase = async (user_id, fullname, email) => {
-    const username = generateFromEmail(email);
-    await databases.createDocument(
-      process.env.NEXT_PUBLIC_DATABASE_ID,
-      process.env.NEXT_PUBLIC_COLLECTION_ID,
-      user_id,
-      {
-        username: username,
-        email: email,
-      },
-    );
   };
 
   return {
@@ -109,5 +88,6 @@ export const useAuth = () => {
     errorMessageList,
     login,
     signup,
+    logout,
   };
 };

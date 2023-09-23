@@ -2,21 +2,16 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import { LucideChevronDown, LucideMenu, LucideSearch, X } from "lucide-react";
-import { Container, FooterContainer } from "./Wrapper";
+import { Container } from "./Wrapper";
 import Avatar from "./Avatar";
 import { useState } from "react";
 import { mainLinks } from "@/lib/constants";
-import { useRouter } from "next/navigation";
-import { deleteCookie } from "cookies-next";
-import { account } from "@/service/appwriteConfig";
+import { useAuth } from "@/hooks/useAuth";
 
 const Header = () => {
-  const router = useRouter();
-
+  const { logout } = useAuth();
   const handleLogout = async () => {
-    await account.deleteSession("current");
-    deleteCookie("auth");
-    router.push("/login");
+    await logout();
   };
 
   const [showNav, setShowNav] = useState(false);
