@@ -1,15 +1,24 @@
 "use client";
 
 import Link from "next/link";
+
+// Custom utility functions
 import { useAuth } from "@/hooks/useAuth";
+
+// Constants
 import { formTemplate } from "@/lib/constants";
 
 const LoginPage = () => {
   const { errorMessageList, status, login } = useAuth();
+
   const handleSubmit = async (formObj) => {
-    await login(formObj.email, formObj.password);
+    try {
+      await login(formObj.email, formObj.password);
+    } catch (error) {
+      throw new Error(error.message);
+    }
   };
-  console.log(status);
+
   return (
     <div className="w-full flex flex-col mx-auto mt-0 bg-[#f9f9f9] rounded border">
       <form

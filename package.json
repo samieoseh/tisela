@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
+    "@tanstack/react-query": "^4.35.3",
+    "@tanstack/react-query-devtools": "^4.35.3",
     "add": "^2.0.6",
     "appwrite": "^11.0.1",
     "autoprefixer": "10.4.15",
@@ -35,5 +37,8 @@
     "tailwindcss-animate": "^1.0.7",
     "unique-username-generator": "^1.2.0",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^4.34.1"
   }
 }
