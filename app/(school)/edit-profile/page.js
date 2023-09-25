@@ -37,7 +37,6 @@ const EditProfilePage = () => {
   });
 
   const queryClient = useQueryClient();
-  refetchQueries(queryClient, ["edit-profile", "profile"]);
 
   useEffect(() => {
     console.log("calling useEffect");
@@ -68,7 +67,10 @@ const EditProfilePage = () => {
                 onClick={async () => {
                   const status = await updateName(user.name);
                   if (status === apiState.SUCCESS) {
-                    await refetchQueries();
+                    await refetchQueries(queryClient, [
+                      "edit-profile",
+                      "profile",
+                    ]);
                     alert("'Name' successfully changed");
                   }
                 }}
@@ -91,7 +93,10 @@ const EditProfilePage = () => {
                 onClick={async () => {
                   const status = await updateUsername(user.$id, user.username);
                   if (status === apiState.SUCCESS) {
-                    await refetchQueries();
+                    await refetchQueries(queryClient, [
+                      "edit-profile",
+                      "profile",
+                    ]);
                     alert("'Username' successfully changed");
                   }
                 }}
@@ -114,7 +119,10 @@ const EditProfilePage = () => {
                 onClick={async () => {
                   const status = await updateBio(user.$id, user.bio);
                   if (status === apiState.SUCCESS) {
-                    await refetchQueries();
+                    await refetchQueries(queryClient, [
+                      "edit-profile",
+                      "profile",
+                    ]);
                     alert("'Bio' successfully changed");
                   }
                 }}
@@ -156,7 +164,10 @@ const EditProfilePage = () => {
                     password,
                   );
                   if (status === apiState.SUCCESS) {
-                    await refetchQueries();
+                    await refetchQueries(queryClient, [
+                      "edit-profile",
+                      "profile",
+                    ]);
                     alert("'Email' successfully changed");
                   }
                 }}
