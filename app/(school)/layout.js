@@ -14,7 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${poppins.className} bg-[#f9f9f9] overflow-x-hidden`}>
+      <body className={`${poppins.className} bg-[#fff] overflow-x-hidden`}>
         <Header />
         <Provider>{children}</Provider>
         <Footer />

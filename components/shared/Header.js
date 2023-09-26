@@ -17,7 +17,7 @@ const Header = () => {
   const [showNav, setShowNav] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   return (
-    <header className="fixed top-0 right-0 w-full border-b border-gray-300 z-20 bg-[#f9f9f9]">
+    <header className="fixed top-0 right-0 w-full border-b border-gray-300 z-20 bg-[#fff]">
       <Container className="py-2">
         <div className="flex justify-between items-center">
           <Logo />
@@ -66,7 +66,7 @@ const Header = () => {
           <input
             type="text"
             placeholder="Search"
-            className={`pl-2 outline-none rounded border border-gray-500 py-1 mt-2 flex-1 text-sm text-gray-700 bg-[#f9f9f9] z-20 ${
+            className={`outline-none rounded shadow-sm  py-2 px-4 mt-2 flex-1 text-sm text-gray-700 bg-[#fff] z-20 ${
               showSearch ? "" : "hidden"
             }`}
           />
